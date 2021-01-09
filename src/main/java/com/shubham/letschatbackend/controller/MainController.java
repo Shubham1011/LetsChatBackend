@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pusher.rest.Pusher;
 import com.pusher.rest.data.Validity;
 import com.shubham.letschatbackend.Repos.MessageRepository;
+import com.shubham.letschatbackend.Repos.RoomRepository;
 import com.shubham.letschatbackend.model.Message;
+import com.shubham.letschatbackend.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +25,15 @@ public class MainController {
     @Autowired
     Pusher pusher;
 
+    @Autowired
+    Message message;
+
+    @Autowired
+    RoomRepository roomRepository;
+
 
     @PostMapping("add")
 public Message addMessage(@RequestBody Message message){
-
         Message message1= messageRepository.save(message);
         if(message1!=null){
          pusher.trigger("chat","addMessage",message1);
@@ -42,5 +49,25 @@ public Message addMessage(@RequestBody Message message){
         return messageRepository.findAll();
 
     }
+
+    @PostMapping("addRoom")
+    public Room addRoom(@RequestBody Room room){
+        Room room1=roomRepository.save(room);
+        if(room1!=null){
+            pusher.trigger("room","addRoom",room1);
+
+            return room1;
+        }
+        return null;
+    }
+
+    @GetMapping("getRooms")
+    public List<Room> getRooms(){
+
+        return roomRepository.findAll();
+
+    }
+
+
 
 }
