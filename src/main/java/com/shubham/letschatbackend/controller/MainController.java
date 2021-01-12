@@ -50,6 +50,17 @@ public Message addMessage(@RequestBody Message message){
 
     }
 
+    @DeleteMapping("deleteChats")
+    public void deleteChats(){
+        messageRepository.deleteAll();
+    }
+
+    @DeleteMapping("deleteRooms")
+    public void deleteRooms(){
+        roomRepository.deleteAll();
+    }
+
+
     @PostMapping("addRoom")
     public Room addRoom(@RequestBody Room room){
         Room room1=roomRepository.save(room);

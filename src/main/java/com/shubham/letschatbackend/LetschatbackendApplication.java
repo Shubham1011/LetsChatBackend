@@ -26,7 +26,7 @@ public class LetschatbackendApplication {
 
     @Bean
     public Pusher pusher(){
-        Pusher pusher = new Pusher("1134867", "3e888fccfeb395bd6cc6", "673a0c75673acd2ecbd2");
+        Pusher pusher = new Pusher("1136793", "f9079a0d6790d52fcce8", "2de101efb0c90558adca");
         pusher.setCluster("ap2");
         pusher.setEncrypted(true);
 
